@@ -4,29 +4,46 @@ import shelve
 import ex45v
 
 class Scene(object):
-    """Parent class for all the scenes, all common attributes and properties go here"""
+    """Parent class for all the scenes, all common attributes and properties go here."""
 
     def enter(self):
+        """Run this, prints an error."""
         print "Not yet configured"
         exit(1)
         pass
 
 class Engine(object):
-    """Runs a map full of scenes"""
+    """Runs a map full of scenes.
+
+    Attributes:
+        scene_map: The first scene entered and executed
+    """
 
     def __init__(self, scene_map):
+        """inits Engine with self.scene_map = scene_map"""
         self.scene_map = scene_map
 
     def play(self):
+        """executes the current_scene and keeps executing the next_scene.
 
+        Starts a while loop and executes the enter function (which is part of
+        every class) and then will change the current_scene to the instance of
+        the returned string from the previous scene.
+        """
         current_scene = self.scene_map.opening_scene()
+
         while True:
             print "\n -------------------------------"
             next_scene_name = current_scene.enter()
             current_scene = self.scene_map.next_scene(next_scene_name)
 
 class Intro(object):
-    """Gets Hero's information or recalls old player"""
+    """Gets Hero's information or recalls old player's info.
+
+    Takes a yes/no raw input and either gathers or recalls players information
+    depending on if they have used this program before. The two shelfs will be
+    created if not already made.
+    """
     def __init__(self):
 
         x = raw_input("Have you played this before? ")
@@ -56,6 +73,7 @@ class Intro(object):
                 e.close()
 
     def info(self):
+        """Takes user input and stores it in the respective shelf."""
         self.name = raw_input("What is your name? ")
         self.special = raw_input("What is your speciality: weapons, armor, or wisdom? ")
         self.enemey = raw_input("what is your enemey's name? ")
@@ -81,7 +99,12 @@ print "current enemey: ", current_enemey
 ## =================================================================================
 
 class Die(Scene):
-    """The Death class is a scene that gives a funny way to die"""
+    """The Death class is a scene that gives a funny way to die.
+
+    Attributes:
+        quips (list): A list of strings that is randomly printed.
+
+    """
 
     quibs = [
         "You died. You suck.",
@@ -91,20 +114,32 @@ class Die(Scene):
     ]
 
     def enter(self):
+        """Prints a random quib and closes the program"""
         print Die.quibs[randint(0, len(self.quibs)-1)]
         exit(1)
 
 class Win(Scene):
+    """Ends the program and prints out a Congrats statement."""
 
     def enter(self):
+        """Ends the program and prints out a congrats string."""
         print "You Won! You beat everyone and survived the competition!"
         print "Congrats!!"
         exit()
 
 class SwordFight(Scene):
-    """You must pick the correct string to get past the black Knight"""
+    """Scene where you must enter the correct raw input to contiune."""
 
     def enter(self):
+        """Takes user str input and returns next scene accordingly.
+
+        Returns:
+            die: If user fails to input correct response, which will
+                        call Die scene and end program.
+            chess_match: If user adances to next scene.
+            DOES NOT COMPUTE: If wrong input from user.
+
+        """
         print "You walk up to the next event. You see crowds of people surrounding"
         print "an arena. You hear metal clashing, screams, and broken things."
         print "You walk in and see the title of the next fight: \n"
@@ -175,9 +210,16 @@ class SwordFight(Scene):
                 pass
 
 class ChessMatch(Scene):
-    """Compares user input to a known dict"""
+    """Compares user input to a known dict."""
 
     def enter(self):
+        """Compares user input to a known dict.
+
+        Returns:
+            die: If user fails to input correct response and ends program.
+            win: If correct respones inputed.
+
+        """
         print "You walk to the next and final event."
         print "No competition is complete without a test of both strength and wit."
         print "You see a board with an old man sitting accross from it."
@@ -232,7 +274,12 @@ class ChessMatch(Scene):
 ## =================================================================================
 
 class Map(object):
-    """A class storing all the scenes we will use"""
+    """A class storing all the scenes we will use.
+
+    Attributes:
+        scenes (dict): Instatiates each scene when it is called for.
+
+    """
 
         # creating a dict with strings calling the instance of each class
     scenes = {
@@ -244,14 +291,27 @@ class Map(object):
         }
 
     def __init__(self, start_scene):
+        """Sets the starting scene.
+
+        Args:
+            start_scene (str): Takes the starting class and passes it.
+
+        """
         self.start_scene = start_scene
 
     def next_scene(self, scene_name):
-        """String we pass thru here returns the next scene (class) we want"""
+        """String we pass thru here returns the next scene (class) we want.
+
+        Returns:
+
+            class: Of next scene.
+
+        """
         # use get method to return value (class) from scenes dict
         return Map.scenes.get(scene_name)
 
     def opening_scene(self):
+        """Sets the starting scene class."""
         return self.next_scene(self.start_scene)
 
 a_map = Map(raw_input("Where do you want to start? Typically is 'archery' "))
