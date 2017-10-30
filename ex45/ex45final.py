@@ -2,6 +2,7 @@ from sys import exit
 from random import randint
 import shelve
 import ex45v
+#testing out uploading from cmd propmt
 
 class Scene(object):
     """Parent class for all the scenes, all common attributes and properties go here."""
