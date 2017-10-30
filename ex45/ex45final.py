@@ -32,6 +32,15 @@ class Engine(object):
         """
         current_scene = self.scene_map.opening_scene()
 
+        #this prvents people from entering wrong starting scene name
+        if current_scene == 1:
+            print "\nplease enter valid starting scene. Your options are:"
+            del Map.scenes['win']
+            print Map.scenes.keys() ,'\n'
+            exit()
+        else:
+            pass
+
         while True:
             print "\n -------------------------------"
             next_scene_name = current_scene.enter()
@@ -46,16 +55,19 @@ class Intro(object):
     """
     def __init__(self):
 
-        x = raw_input("Have you played this before? ")
+        x = raw_input("Have you played this before? ").lower()
 
         if x == 'yes':
             # I have the variable of the name
-            y = raw_input("What was your name? ")
+            y = raw_input("What was your name? ").lower()
             # opening databases:
             s = shelve.open('speciality_shelf.db')
             e = shelve.open('enemey_shelf.db')
             try:
                 self.name = y
+                if y not in s:
+                    print ("\nPlease enter valid Hero Name from before.\n")
+                    exit()
             finally:
                 s.close()
                 e.close()
@@ -74,15 +86,22 @@ class Intro(object):
 
     def info(self):
         """Takes user input and stores it in the respective shelf."""
-        self.name = raw_input("What is your name? ")
-        self.special = raw_input("What is your speciality: weapons, armor, or wisdom? ")
-        self.enemey = raw_input("what is your enemey's name? ")
+        self.name = raw_input("What is your name? ").lower()
+        while True:
+                self.special = raw_input("What is your speciality: weapons, armor, or wisdom? ").lower()
+                if self.special in ('weapons', 'armor', 'wisdom'):
+                    break
+                else:
+                    print "PLEASE ENTER VALID SPECIALITY"
+        else:
+            pass
+        self.enemey = raw_input("what is your enemey's name? ").lower()
 
 # sets intro to the instance of class Intro()
 intro = Intro()
 
 # calling current variables and lists from the function info inside class intro
-print "Hero's name: ", intro.name
+print "Hero's name: ", intro.name.title()
 s = shelve.open('speciality_shelf.db')
 e = shelve.open('enemey_shelf.db')
 try:
@@ -93,8 +112,8 @@ finally:
     e.close()
 
 # now i can use these variables to call the current special and enemeny whereever!
-print "current speciality: ", current_speciality
-print "current enemey: ", current_enemey
+print "current speciality: ", current_speciality.title()
+print "current enemey: ", current_enemey.title()
 
 ## =================================================================================
 
@@ -283,11 +302,11 @@ class Map(object):
 
         # creating a dict with strings calling the instance of each class
     scenes = {
-        'archery':ex45v.Archery(),
-        'sword_fight':SwordFight(),
-        'chess_match':ChessMatch(),
-        'win':Win(),
-        'die':Die()
+        'archery': ex45v.Archery(),
+        'sword_fight': SwordFight(),
+        'chess_match': ChessMatch(),
+        'win': Win(),
+        'die': Die(),
         }
 
     def __init__(self, start_scene):
@@ -304,11 +323,11 @@ class Map(object):
 
         Returns:
 
-            class: Of next scene.
+            value of key from scene (dict).
 
         """
         # use get method to return value (class) from scenes dict
-        return Map.scenes.get(scene_name)
+        return Map.scenes.get(scene_name, 1)
 
     def opening_scene(self):
         """Sets the starting scene class."""
