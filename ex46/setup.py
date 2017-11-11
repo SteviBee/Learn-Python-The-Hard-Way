@@ -6,14 +6,14 @@ except ImportError:
 config = {
     'description' : 'My Project',
     'author' : 'Stephen Borutta',
-    'url' : 'URL to get it all at',
-    'download_url' : 'Where to download it',
+    'url' : 'https://github.com/SteviBee/Learn-Python-The-Hard-Way/tree/master/ex46',
+    'download_url' : 'https://github.com/SteviBee/Learn-Python-The-Hard-Way/tree/master/ex46',
     'author_email' : 'boruttasp@gmail.com',
     'version' : '0.1',
     'install_requires' : ['nose'],
     'packages' : ['NAME'],
     'scripts' : [],
-    'name' : 'projectname'
+    'name' : 'LPTHW ex46'
 }
 
 setup(**config)
