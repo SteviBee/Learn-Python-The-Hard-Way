@@ -5,5 +5,5 @@ To use this Skeleton:
 3. Edit your setup.py to have all the information for your project.
 4. Rename tests/NAME_tests.py to also have your module name.
 5. Double check it's all working using nosetests again.
-    check via powershell "python -m nose"
+    check via powershell "nosetests"
 6. Start coding.
