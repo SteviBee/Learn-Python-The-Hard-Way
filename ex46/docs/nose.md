@@ -32,11 +32,11 @@ result = nose.run()`
 
 Runs nose test inside current folder:
 
-`PS C:\> python -m nose`
+`PS C:\> nosetests`
 
 To see exactly what is being tested use verbose:
 
-`PS C:\> python -m nose -v`
+`PS C:\> nose -v`
 
 ##### Nose Usage
 Nose will automatically collect tests from python source files, directories, and packages found in the **working directory** as long as they match the testMatch regular expression, by default:

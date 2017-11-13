@@ -3,16 +3,16 @@ PIP = a tool to help install packages via the `setuptools` build system. The int
 
 ##### Code & Usage:
 Installing a package (assuming it is downloaded):
-`PS C:\> python -m pip install <filename>`
+`PS C:\> pip install <filename>`
 
 Looking at what packages are installed:
-`PS C:\> python -m pip list`
+`PS C:\> pip list`
 
 Shows version:
-`PS C:\> python -m pip --version`
+`PS C:\> pip --version`
 
 Shows help:
-`PS C:\> python -m pip --help`
+`PS C:\> pip --help`
 
 
 ##### More documentation :fire::
