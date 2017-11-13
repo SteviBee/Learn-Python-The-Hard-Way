@@ -6,7 +6,7 @@ except ImportError:
 config = {
     'description' : 'Learning how to run simple tests',
     'author' : 'Stephen Borutta',
-    'url' : 'URL to get it all at',
+    'url' : 'https://github.com/SteviBee/Learn-Python-The-Hard-Way/tree/master/ex47',
     'download_url' : 'Where to download it',
     'author_email' : 'boruttasp@gmail.com',
     'version' : '0.1', #major.minor[.patch[.sub]]
