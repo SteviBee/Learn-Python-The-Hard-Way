@@ -7,3 +7,4 @@ setuptools and comes with the following.
 - Test hooks
 - Project installation
 - Platform-specific details
+- and more 
