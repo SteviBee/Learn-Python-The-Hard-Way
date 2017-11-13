@@ -1,5 +1,5 @@
 from nose.tools import *
-import NAME
+import ex46
 
 def setup():
     print "SETUP!"

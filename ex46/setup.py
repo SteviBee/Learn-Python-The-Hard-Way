@@ -11,7 +11,7 @@ config = {
     'author_email' : 'boruttasp@gmail.com',
     'version' : '0.1',
     'install_requires' : ['nose'],
-    'packages' : ['distribute', 'nose', 'pip', 'virtualenv'],
+    'packages' : ['ex46'],
     'scripts' : [],
     'name' : 'LPTHW ex46'
 }
