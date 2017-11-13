@@ -1,3 +1,5 @@
+from os.path import join as pjoin
+
 try:
     from setuptools import setup
 except ImportError:
@@ -12,8 +14,8 @@ config = {
     'version' : '0.1',
     'install_requires' : ['nose'],
     'packages' : ['ex46'],
-    'scripts' : [],
-    'name' : 'LPTHW ex46'
+    'scripts' : [pjoin('bin','say_hello')],
+    'name' : 'ex46'
 }
 
 setup(**config)
