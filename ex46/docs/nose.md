@@ -68,3 +68,58 @@ Nosetests will find:
 - directories that don't look like tests are not inspected.
 
 - packages are always inspected but only collected if tests.
+
+##### Running Test
+From http://ivory.idyll.org/articles/nose-intro.html#the-nose-command-line It is a good detailed explanation of the logic:
+
+```python
+if has_setup_fixture(test):
+   run_setup(test)
+
+try:
+
+   run_test(test)
+
+finally:
+   if has_setup_fixture(test):
+      run_teardown(test)
+Unlike for tests themselves, however, test fixtures on test modules and test packages are run only once. This extends the test logic above to this:
+
+### run module setup fixture
+
+if has_setup_fixture(test_module):
+   run_setup(test_module)
+
+### run all tests
+
+try:
+   for test in get_tests(test_module):
+
+      try:                               ### allow individual tests to fail
+         if has_setup_fixture(test):
+            run_setup(test)
+
+         try:
+
+            run_test(test)
+
+         finally:
+            if has_setup_fixture(test):
+               run_teardown(test)
+      except:
+         report_error()
+
+finally:
+
+   ### run module teardown fixture
+
+   if has_setup_fixture(test_module):
+      run_teardown(test_module)
+```
+
+A few additional notes:
+
+- if the setup fixture fails, no tests are run and the teardown fixture isn't run, either.
+- if there is no setup fixture, then the teardown fixture is not run.
+- whether or not the tests succeed, the teardown fixture is run.
+- all tests are executed even if some of them fail.
