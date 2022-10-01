@@ -7,3 +7,4 @@ To use this Skeleton:
 5. Double check it's all working using nosetests again.
     check via powershell "python -m nose"
 6. Start coding.
+7. Have fun
